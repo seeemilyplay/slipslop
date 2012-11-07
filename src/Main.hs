@@ -27,7 +27,9 @@ main = do
       (dist :: CountHistogram) <- parseDistribution <$> readFile input
       (els :: [NumberedElement]) <- generateElements dist (fromIntegral n)
       runTopK els
-    _ -> badArgExit
+    _ -> do
+      c <- getContents
+      runTopK (map NamedElement $ lines c)
   where
     runTopK :: (Hashable e, Ord e, Show e) => [e] -> IO ()
     runTopK els = do
@@ -63,7 +65,7 @@ main = do
     argFile xs = Just (head $ reverse xs)
 
     usage :: String
-    usage = "Usage: slipslop [count-min-sketch|count-mean-min-sketch|stream-summary|mean-stream-summary] [Options...] [histogram|count-histogram] file\n\n"
+    usage = "Usage: slipslop [count-min-sketch|count-mean-min-sketch|stream-summary|mean-stream-summary] [Options...]? [[histogram|count-histogram] file]?\n\n"
             ++ "  options:\n"
             ++ "    -k INT   top k\n"
             ++ "    -n INT   number of elements to try\n\n"
