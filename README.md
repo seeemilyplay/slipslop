@@ -7,6 +7,6 @@ Please see: http://highlyscalable.wordpress.com/2012/05/01/probabilistic-structu
 
 It's written in Haskell, so to install the executable just do 'cabal install'. You then run it like this:
 
-slipslop stream-summary -n 100000 samples/all_day_consumer_count_histogram.txt
+slipslop stream-summary -n 100000 histogram <some_sample_histogram.csv>
 
 It's called slipslop because it's answering tip top queries, but in a slippy sloppy way.

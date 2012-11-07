@@ -71,6 +71,9 @@ class Hashable a where
 instance Hashable NumberedElement where
   toHash (NumberedElement n) = fromIntegral n
 
+instance Hashable NamedElement where
+  toHash (NamedElement s) = sum $ map fromEnum s
+
 hashLookup :: (Hashable a) => a -> Hash -> Integer
 hashLookup value h@(Hash _ _ _ xs) =
   head . snd $ splitAt (hash value h) xs
