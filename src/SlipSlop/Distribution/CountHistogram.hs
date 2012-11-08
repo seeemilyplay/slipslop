@@ -6,7 +6,6 @@ module SlipSlop.Distribution.CountHistogram (
 
 import Data.Map (Map, fromList, lookup)
 import Data.Maybe
-import System.Random
 
 import SlipSlop.Distribution
 import SlipSlop.Element
@@ -18,11 +17,10 @@ data CountHistogram = CountHistogram [(Count, NoOfElements)]
   deriving Show
 
 instance Distribution CountHistogram NumberedElement where
-  generateElements dist n = do
+  generateElements dist n ch = do
     let elMap = elementMap dist
         total = totalCount dist
-    rnd <- getStdGen
-    let numbers = take n $ randomRs (1, total) rnd
+    numbers <- randomNumbers n ch total
     return $ map (fromJust . flip Data.Map.lookup elMap) numbers
     where
       totalCount :: CountHistogram -> Integer

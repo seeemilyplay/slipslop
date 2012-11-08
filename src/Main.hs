@@ -10,15 +10,16 @@ main :: IO ()
 main = do
   args <- getArgs
   let n = argNumber args "-n" 100
+      ch = argNumber args "-c" 1
       minput = argFile args
   case minput of
     Just input | "histogram" `elem` args -> do
       (dist :: Histogram) <- parseDistribution <$> readFile input
-      (els :: [NamedElement]) <- generateElements dist (fromIntegral n)
+      (els :: [NamedElement]) <- generateElements dist n ch
       runTopK els
     Just input | "count-histogram" `elem` args -> do
       (dist :: CountHistogram) <- parseDistribution <$> readFile input
-      (els :: [NumberedElement]) <- generateElements dist (fromIntegral n)
+      (els :: [NumberedElement]) <- generateElements dist n ch
       runTopK els
     _ -> do
       c <- getContents
@@ -60,8 +61,10 @@ main = do
     usage :: String
     usage = "Usage: slipslop [count-min-sketch|count-mean-min-sketch|stream-summary|mean-stream-summary] [Options...]? [[histogram|count-histogram] file]?\n\n"
             ++ "  options:\n"
-            ++ "    -k INT   top k\n"
-            ++ "    -n INT   number of elements to try\n\n"
+            ++ "    -k INT   top k\n\n"
+            ++ "  with distribution file:\n"
+            ++ "    -n INT   number of elements to try\n"
+            ++ "    -c INT   number of chunks to group elements into (good if trying out a top-k method that depends on ordering)\n\n"
             ++ "  count-min-sketch options:\n"
             ++ "    -w INT   width of hash arrays\n"
             ++ "    -d INT   number of hash arrays\n"
