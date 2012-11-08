@@ -4,14 +4,7 @@ import Control.Applicative
 import System.Environment
 import System.Exit
 
-import Distribution.Core
-import Distribution.CountHistogram
-import Distribution.Histogram
-import TopK.Accurate
-import TopK.CountSketch
-import TopK.MeanStreamSummary
-import TopK.StreamSummary
-import Element.Core
+import SlipSlop
 
 main :: IO ()
 main = do

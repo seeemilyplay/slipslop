@@ -1,4 +1,4 @@
-module Element.Core (
+module SlipSlop.Element (
   NumberedElement(..),
   NamedElement(..)) where
 

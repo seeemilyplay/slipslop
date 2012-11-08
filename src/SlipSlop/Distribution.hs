@@ -1,6 +1,9 @@
-module Distribution.Core (
+module SlipSlop.Distribution (
   Distribution(..),
-  ParsableDistribution(..)) where
+  ParsableDistribution(..),
+  Count) where
+
+type Count = Integer
 
 class Distribution d e where
   generateElements :: d -> Int -> IO [e]

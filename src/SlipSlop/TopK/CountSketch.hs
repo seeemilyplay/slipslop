@@ -1,4 +1,4 @@
-module TopK.CountSketch (
+module SlipSlop.TopK.CountSketch (
   CountSketch(..),
   Method(..),
   Hash,
@@ -15,8 +15,8 @@ import Data.Ord
 import Data.Set (Set, elems, empty, insert)
 import System.Random
 
-import Element.Core
-import TopK.Core
+import SlipSlop.Element
+import SlipSlop.TopK
 
 
 type HashSize = Int

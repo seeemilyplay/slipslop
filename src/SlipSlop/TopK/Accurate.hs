@@ -1,10 +1,12 @@
-module TopK.Accurate (
+module SlipSlop.TopK.Accurate (
   Accurate(..),
   topK) where
 
-import TopK.Core
 import Data.List
 import Data.Ord
+
+import SlipSlop.TopK
+
 
 data Accurate = Accurate
   deriving Show

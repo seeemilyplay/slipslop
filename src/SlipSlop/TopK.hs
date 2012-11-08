@@ -1,4 +1,4 @@
-module TopK.Core (
+module SlipSlop.TopK (
   TopK(..)) where
 
 

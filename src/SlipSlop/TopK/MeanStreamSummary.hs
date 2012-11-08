@@ -1,6 +1,6 @@
-module TopK.MeanStreamSummary (
+module SlipSlop.TopK.MeanStreamSummary (
   MeanStreamSummary(..),
-  Slots,
+  MsSlots,
   topK) where
 
 import Control.Arrow
@@ -8,18 +8,18 @@ import Data.List (minimumBy, sortBy)
 import Data.Map (Map, assocs, delete, empty, lookup, insert, size)
 import Data.Ord (comparing)
 
-import TopK.Core
+import SlipSlop.TopK
 
 
-type Slots = Integer
+type MsSlots = Integer
 
-data MeanStreamSummary = MeanStreamSummary Slots
+data MeanStreamSummary = MeanStreamSummary MsSlots
 
 instance (Ord e) => TopK MeanStreamSummary e where
   topK (MeanStreamSummary slots) k =
     map (second estimate) . take (fromIntegral k) . reverse . sortBy (comparing snd) . assocs . foldr (addElement slots) empty
 
-addElement :: (Ord e) => Slots -> e -> Map e Tally -> Map e Tally
+addElement :: (Ord e) => MsSlots -> e -> Map e Tally -> Map e Tally
 addElement slots el tallies =
   case (Data.Map.lookup el tallies, size tallies < fromIntegral slots) of
     (Just (Tally c t s), _) -> insert el (Tally (c+1) (t+1) s) tallies

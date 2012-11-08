@@ -1,6 +1,5 @@
-module Distribution.Histogram (
+module SlipSlop.Distribution.Histogram (
   generateElements,
-  Count,
   Histogram(..),
   parseDistribution) where
 
@@ -8,11 +7,9 @@ import Data.Map (Map, fromList, lookup)
 import Data.Maybe
 import System.Random
 
-import Distribution.Core
-import Element.Core
+import SlipSlop.Distribution
+import SlipSlop.Element
 
-
-type Count = Integer
 
 data Histogram = Histogram [(NamedElement, Count)]
   deriving Show
