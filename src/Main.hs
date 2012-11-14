@@ -41,6 +41,7 @@ main = do
           hashes <- createHashes (fromIntegral p) (fromIntegral w) (fromIntegral d)
           return $ topK (CountSketch MeanMin hashes) k els
         ("stream-summary":_) -> return $ topK (StreamSummary s) k els
+        ("buffered-stream-summary":_) -> return $ topK (BufferedStreamSummary s s) k els
         ("mean-stream-summary":_) -> return $ topK (MeanStreamSummary s) k els
         _ -> badArgExit
       let accurateResult = topK Accurate k els
@@ -59,7 +60,7 @@ main = do
     argFile xs = Just (head $ reverse xs)
 
     usage :: String
-    usage = "Usage: slipslop [count-min-sketch|count-mean-min-sketch|stream-summary|mean-stream-summary] [Options...]? [[histogram|count-histogram] file]?\n\n"
+    usage = "Usage: slipslop [count-min-sketch|count-mean-min-sketch|stream-summary|mean-stream-summary|buffered-stream-summary] [Options...]? [[histogram|count-histogram] file]?\n\n"
             ++ "  options:\n"
             ++ "    -k INT   top k\n\n"
             ++ "  with distribution file:\n"
@@ -76,6 +77,8 @@ main = do
             ++ "  stream-summary options:\n"
             ++ "    -s INT   number of slots\n\n"
             ++ "  mean-stream-summary options:\n"
+            ++ "    -s INT   number of slots\n\n"
+            ++ "  buffered-stream-summary options:\n"
             ++ "    -s INT   number of slots\n\n"
 
     badArgExit :: IO a

@@ -39,6 +39,7 @@ library
                   , SlipSlop.TopK
                   , SlipSlop.TopK.Accurate
                   , SlipSlop.TopK.CountSketch
+                  , SlipSlop.TopK.BufferedStreamSummary
                   , SlipSlop.TopK.MeanStreamSummary
                   , SlipSlop.TopK.StreamSummary
 
